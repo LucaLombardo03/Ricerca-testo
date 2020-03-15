@@ -28,14 +28,65 @@ namespace Ricerca_testo
         private void btncerca_Click(object sender, RoutedEventArgs e)
         {
             string testoiniziale = txttestoiniziale.Text;
-            string testodacercare = txttestocercare.Text;
-            bool esiste = testoiniziale.Contains(testodacercare);
-            if (esiste == true)
+            string testodacercare = txttestocercare.Text + ' ';
+            if (testoiniziale.Contains(testodacercare))
             {
-                
+                int index = testoiniziale.IndexOf(testodacercare);
+                int lunghezza = testoiniziale.Length;
+                int indexstringa = index + testodacercare.Length;
+                int i = index - 1;
+                int a = indexstringa;
+
+                if (testoiniziale[index - 1] == ' ')
+                {
+                    while (i > 0)
+                    {
+                        i--;
+                        if (testoiniziale[i] == ' ')
+                        {
+                            break;
+
+                        }
+                    }
+
+                    while (a < testoiniziale.Length)
+                    {
+
+                        a++;
+                        if (testoiniziale[a] == ' ')
+                        {
+                            break;
+                        }
+
+                    }
+
+
+                    string risultato = testoiniziale.Substring(i, a - i);
+                    lblfine.Content = $"...{risultato}...";
+
+                }
+                else if (testoiniziale[index - 1] != ' ')
+                {
+                    while (i > 0 || i > testoiniziale.IndexOf(' '))
+                    {
+                        i--;
+
+                    }
+
+                    while (a < testoiniziale.Length || a < testoiniziale.IndexOf(' '))
+                    {
+                        a++;
+
+                    }
+                }
+                string risultato2 = testoiniziale.Substring(i, a - i);
+                lblfine.Content = $"...{risultato2}...";
+
             }
             else
-                lblfine.Content = (false);
+            {
+                lblfine.Content = "Impossibile trovare la stringa nel testo";
+            }
         }
     }
 }
